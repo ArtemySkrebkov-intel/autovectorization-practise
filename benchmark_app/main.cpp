@@ -1,3 +1,8 @@
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Rpass"
+#pragma clang diagnostic ignored "-Rpass-missed"
+#pragma clang diagnostic ignored "-Rpass-analysis"
+
 #include <iostream>
 #include <sstream>
 #include <chrono>
@@ -38,6 +43,18 @@ template <typename Runnable, int num_run_cycles = 1000000, int num_tests = 10>
 			return 0;
 		}
 
+		double median_duration(){
+			std::array<double, num_tests> durations;
+			for(size_t i = 0; i < num_tests; i++){
+				durations[i] = (intervals_[i].second - intervals_[i].first) * 0.001;
+			}
+
+			std::sort(durations.begin(), durations.end());
+
+			if (num_tests % 2 != 0)
+				return durations[num_tests/2];
+			return (durations[(num_tests - 1)/2] + durations[num_tests/2]) / 2.0;
+		}
 		private:
 		std::array<std::pair<double, double>, num_tests> intervals_{};
 
@@ -53,31 +70,15 @@ template <typename Runnable, int num_run_cycles = 1000000, int num_tests = 10>
 		};
 
 	};
+#pragma clang diagnostic pop
 
-#define N 10*1024*1024
-struct testFunc{
-    testFunc() : a(N), b(N), r(N) {
-        srand (time(NULL));
-        for (int i =0; i < N; i++) {
-           a[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-           b[i] = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-        }
-    }
-
-	void run(){
-		for (int i=0; i < N; i++) {
-            r[i] = a[i] * b[i];
-        }
-	}
-	private:
-	    std::vector<float> a, b, r;
-};
-
+#include INCLUDE_TEST
 
 int main() {
-    BenchmarkingTimer<testFunc, 100, 10> test;
+    BenchmarkingTimer<testFunc, 1000, 11> test;
 	test.run();
-	std::cout << test.durations() << std::endl;
-	std::cout << "average duration = " << test.average_duration() << " ms" << std::endl;
+	std::cout << test.durations() << '\n';
+	std::cout << "average duration = " << test.average_duration() << " ms\n";
+	std::cout << "median duration = " << test.median_duration() << " ms\n" << std::endl;
 	return 0;
 }
