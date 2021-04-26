@@ -10,25 +10,25 @@
 3. Получить LLVM IR без векторизации и раскрутки:
 ```
 clang -O3 -fno-vectorize -fno-unroll-loops -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
-llvm-extract.exe -func=?run@testFunc@@QEAAXXZ test5.bc -o run-fn.bc
+llvm-extract -func=?run@testFunc@@QEAAXXZ test5.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
 4. Получить LLVM IR без векторизации, с раскруткой:
 ```
 clang -O3 -fno-vectorize -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
-llvm-extract.exe -func=?run@testFunc@@QEAAXXZ test5.bc -o run-fn.bc
+llvm-extract -func=?run@testFunc@@QEAAXXZ testN.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
 5. Получить LLVM IR с векторизацией, без раскрутки:
 ```
 clang -O3 -fno-vectorize -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
-llvm-extract.exe -func=?run@testFunc@@QEAAXXZ test5.bc -o run-fn.bc
+llvm-extract -func=?run@testFunc@@QEAAXXZ testN.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
 5. Получить LLVM IR с векторизацией и раскруткой:
 ```
 clang -O3 -fno-vectorize -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
-llvm-extract.exe -func=?run@testFunc@@QEAAXXZ test5.bc -o run-fn.bc
+llvm-extract -func=?run@testFunc@@QEAAXXZ testN.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
 5. Заполнить соответсвующие таблицы отчёта.
