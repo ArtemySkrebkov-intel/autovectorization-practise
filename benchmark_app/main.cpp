@@ -79,6 +79,6 @@ int main() {
 	test.run();
 	std::cout << test.durations() << '\n';
 	std::cout << "average duration = " << test.average_duration() << " ms\n";
-	std::cout << "median duration = " << test.median_duration() << " ms\n" << std::endl;
+	// std::cout << "median duration = " << test.median_duration() << " ms\n" << std::endl;
 	return 0;
 }

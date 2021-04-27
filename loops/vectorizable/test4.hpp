@@ -2,11 +2,12 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
 #define N 1024*1024
 
 struct testFunc{
-    testFunc() {
+    testFunc() : a(N), b(N), r(N) {
         srand (time(NULL));
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Rpass"
@@ -27,5 +28,5 @@ struct testFunc{
 	}
 
 private:
-	short a[N], b[N], r[N];
+	std::vector<short> a, b, r;
 };

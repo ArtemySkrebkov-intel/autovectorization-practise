@@ -1,11 +1,13 @@
 #pragma once
 
-#include <cstdlib>
-#include <ctime>
+#include <vector>
 
 #define N 1024*1024
 
 struct testFunc{
+    testFunc() : r(N) {
+    }
+
     __attribute__((noinline))
 	void run(){
 		for (int i=0; i < N; i++) {
@@ -13,5 +15,5 @@ struct testFunc{
         }
 	}
 private:
-	int r[N];
+	std::vector<int> r;
 };
