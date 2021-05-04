@@ -12,8 +12,7 @@ struct testFunc{
     __attribute__((noinline))
 	void run(){
 		for (int i=0; i < N; i++) {
-            short tmp = i % SHRT_MAX;
-            r[i] = tmp;
+            r[i] += 10;
         }
 	}
 private:
