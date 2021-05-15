@@ -29,13 +29,13 @@ llvm-dis run-fn.bc -o run-fn.ll
 ```
 5. Получить LLVM IR с векторизацией, без раскрутки:
 ```
-clang -O3 -fno-vectorize -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
+clang -O3 -fno-unroll-loops -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
 llvm-extract -func=?run@testFunc@@QEAAXXZ testN.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
 5. Получить LLVM IR с векторизацией и раскруткой:
 ```
-clang -O3 -fno-vectorize -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
+clang -O3 -I./loops/vectorizable/ -DINCLUDE_TEST=\"testN.hpp\" test.cpp -emit-llvm -c -o testN.bc
 llvm-extract -func=?run@testFunc@@QEAAXXZ testN.bc -o run-fn.bc
 llvm-dis run-fn.bc -o run-fn.ll
 ```
